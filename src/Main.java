@@ -3,8 +3,18 @@ public class Main
 {
 public static void main(String [] args)
 {
-  for(int i=0;i<10;i++)
-      System.out.print(i+" ");
-    
+    Object g = new Object();
+    Object y = new Object();
+    System.out.println(g);
+    System.out.println(y);
+    if(y == g)
+    {
+        System.out.println("equals");
+    }
+    else
+    {
+        System.out.println("Not equals");
+        
+    }
 }
 }
