@@ -15,7 +15,7 @@ public class Transposition implements Crypto
     }
     public String code()
     {
-        if ((str.length() % key.length) != 0)
+        if ((str.length() % key.length) != 0 || str == null)
         {
             return null;
         }
@@ -30,9 +30,9 @@ public class Transposition implements Crypto
 
         return sb.toString();
     }
-    public  char [] decode()
+    public  char [] decode(String str)
     {
-        if ((str.length() % key.length) != 0)
+        if ((str.length() % key.length) != 0 || str == null)
         {
             return null;
         }
