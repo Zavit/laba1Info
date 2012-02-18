@@ -1,13 +1,19 @@
 package realization;
 import java.util.Arrays;
 
+import Interface.Crypto;
+
 public class Coder
 {
     public static void main(String[] args)
     {
-        short[] masP = new short[] { 2, 5, 3, 4, 1, 6 };
+        
+        ///method perestanovki
+       int[] key = new int[] { 2, 5, 3, 4, 1, 6 };
         String str = "основы защиты инфы";
-        String code = code(str, masP,masP.length);
+        
+        Crypto shifr = new Transposition(str, key);
+        String code = shifr.code();
         if (code != null)
         {
             System.out.println(code);
@@ -16,54 +22,38 @@ public class Coder
         {
             System.out.println("Данный метод лучше не применять");
         }
-        char [] decode = decode(code,masP,masP.length);
-        System.out.println(Arrays.toString(decode));
+        char [] decode = shifr.decode(code);
+        if (decode != null)
+        {
+            System.out.println(Arrays.toString(decode));
+        }
+        else
+        {
+            System.out.println("Данный метод лучше не применять");
+        }
+        
+        
+        /////////Method podstanovki
+        String str1 = "I LOVE YOU";
+        Crypto shifr1 = new Substitution(str1);
+        String code1 = shifr1.code();
+        if (code1 != null)
+        {
+            System.out.println(code1);
+        }
+        else
+        {
+            System.out.println("Данный метод лучше не применять");
+        }
+        char [] decode1 = shifr1.decode(code1);
+        if (decode1 != null)
+        {
+            System.out.println(Arrays.toString(decode1));
+        }
+        else
+        {
+            System.out.println("Данный метод лучше не применять");
+        }
+       
     }
-
-    /**
-     * 
-     * @param str - str which code to
-     * @param key - data from which code
-     * @return
-     */
-    public static String code(String str,
-                              short[] key,
-                              int length)
-    {
-        if ((str.length() % key.length) != 0)
-        {
-            return null;
-        }
-        StringBuilder sb = new StringBuilder();
-        for (short i = 0; i < str.length(); i += length)
-        {
-            for (short j = i; j < length + i; j++)
-            {
-                sb.append(str.charAt((key[j % length] - 1) + i)); // 6 операций
-            }
-        }
-
-        return sb.toString();
-    }
-    public static char [] decode(String str,
-                              short[] key,
-                              int length)
-    {
-        if ((str.length() % key.length) != 0)
-        {
-            return null;
-        }
-       char [] decode = new char[str.length()];
-
-        for (short i = 0; i < str.length(); i += length)
-        {
-            for (short j = i; j < length + i; j++)
-            {
-                decode[(key[j%length]-1)+i] = str.charAt(j);
-            }
-        }
-
-        return decode;
-    }
-
 }
